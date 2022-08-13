@@ -6,15 +6,14 @@ from products.models import Product
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from products.serializers import ProductSerializer
 
-@api_view(["GET","POST"])
-def api_home(request, *args):
-    model_data = Product.objects.all().order_by("?").first()
-    print("sdasdasdasdasdsad")
-    data = {}
-    if model_data:
-        data = model_to_dict(model_data, fields=["id", "title", "price"])
-        # json_data_str = json.dumps(data)
-    return Response(data)
-    # return JsonResponse(data)
-    # return HttpResponse(json_data_str, headers={"Content-Type": "application/json"})
+
+@api_view(["POST"])
+def api_home(request, *args, **kwargs):
+    serializer = ProductSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        # instance = serializer.save()
+        print(serializer.data)
+        return Response(serializer.data)
+    return Response({"invalid": "Bad data"})
