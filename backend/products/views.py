@@ -1,11 +1,10 @@
-from rest_framework import generics, mixins, permissions
+from rest_framework import generics, mixins
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from .models import Product
 from .serializers import ProductSerializer
 from rest_framework.decorators import api_view
-from backend.api.permissions import IsStaffEditorPermission
-from backend.api.mixin import StaffEditorPermissionMixin
+from api.mixin import StaffEditorPermissionMixin
 
 
 class ProductListCreateAPIView(
